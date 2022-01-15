@@ -3,7 +3,7 @@ export const networkCollections = {
     //Add Your Collections here
     {
       image:
-        "https://lh3.googleusercontent.com/BWCni9INm--eqCK800BbRkL10zGyflxfPwTHt4XphMSWG3XZvPx1JyGdfU9vSor8K046DJg-Q8Y4ioUlWHiCZqgR_L00w4vcbA-w=s0",
+        "https://gateway.ipfs.io/ipfs/QmZrU3jGhe6u12LUujUxAeLTLX5P1bigcq2XF8aWWC5TKN/images/6.png",
       name: "Test Mages",
       addrs: "0x275d553f426355c20b134D944B5b28D31CDb83DA",
     },
