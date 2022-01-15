@@ -17,6 +17,8 @@ git clone https://github.com/NFTHackathon/opensea-clone-justifi.git
 ```sh
 cd opensea-clone-justifi
 yarn install 
+npm install --save ethers
+npm install --save web3modal
 ```
 ✏ Rename `.env.example` to `.env` in the main folder and provide your `appId` and `serverUrl` from Moralis ([How to start Moralis Server](https://docs.moralis.io/moralis-server/getting-started/create-a-moralis-server)) 
 ``` Add .env file in the main folder if it doesn't exist ```
