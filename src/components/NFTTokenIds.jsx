@@ -16,6 +16,11 @@ import {
 import { useMoralisDapp } from "providers/MoralisDappProvider/MoralisDappProvider";
 import { getExplorer } from "helpers/networks";
 import { useWeb3ExecuteFunction } from "react-moralis";
+import {escrow} from '../contracts/config.js';
+import EscrowABI from '../contracts/Escrow.json';
+import Web3Modal from 'web3modal';
+import {ethers} from 'ethers';
+
 const { Meta } = Card;
 
 const styles = {
@@ -124,6 +129,59 @@ function NFTTokenIds({ inputValue, setInputValue }) {
     console.log(nft.image);
     setVisibility(true);
   };
+
+  const handleBuywithJustiFiClick = async (nft) => {
+    setLoading(true);
+    // const tokenDetails = getMarketItem(nft);
+    const web3Modal= new Web3Modal();
+    const connection = await web3Modal.connect();
+    const provider = new ethers.providers.Web3Provider(connection)
+    const signer = provider.getSigner()
+    const itemID = '1';
+    const tokenPrice = '1000000000000000';
+    const NFTContract = ethers.utils.getAddress('0xa585C9A8125A0aD4cD2063D9f1006734B5cb81f6');
+    const NFTseller = ethers.utils.getAddress('0x4764e0eB62E55a2E8CB1D593588D2FC52CC0e89b');
+    const contract = new ethers.Contract(ethers.utils.getAddress(escrow), EscrowABI.abi, signer);
+    try{
+          await contract.buyWithJustiFi(
+          NFTseller,
+          NFTContract,
+          itemID,
+          tokenPrice,
+          {value: tokenPrice});
+      } catch(error) {
+          console.log(error)
+      }
+    
+    // const ops = {
+    //   contractAddress: escrow,
+    //   functionName: "buyWithJustiFi",
+    //   abi: EscrowABI,
+    //   params: {
+    //     _seller: NFTseller,
+    //     _purchasedNFT: NFTContract,
+    //     _tokenId: itemID,
+    //     _nftPrice: tokenPrice
+    //   },
+    //   msgValue: tokenPrice,
+    // };
+
+    // await contractProcessor.fetch({
+    //   params: ops,
+    //   onSuccess: () => {
+    //     console.log("success");
+    //     setLoading(false);
+    //     setVisibility(false);
+    //     updateSoldMarketItem();
+    //     succPurchase();
+    //   },
+    //   onError: (error) => {
+    //     console.log(error)
+    //     // setLoading(false);
+    //     // failPurchase();
+    //   },
+    // });
+  }
 
   function succPurchase() {
     let secondsToGo = 5;
@@ -265,7 +323,7 @@ function NFTTokenIds({ inputValue, setInputValue }) {
                     <ShoppingCartOutlined onClick={() => handleBuyClick(nft)} />
                   </Tooltip>,
                   <Tooltip title="Buy NFT with JustiFi">
-                    <ShoppingCartOutlined onClick={() => handleBuyClick(nft)} />
+                    <ShoppingCartOutlined onClick={() => handleBuywithJustiFiClick(nft)} />
                   </Tooltip>
                 ]}
                 style={{ width: 240, border: "2px solid #e7eaf3" }}
