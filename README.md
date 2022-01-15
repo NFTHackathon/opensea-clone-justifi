@@ -44,7 +44,6 @@ event MarketItemCreated (
 );
 ```
 
-
 🚴‍♂️ Run your App:
 ```sh
 yarn start
