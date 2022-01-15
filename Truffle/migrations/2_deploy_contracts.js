@@ -6,3 +6,4 @@ module.exports = function(deployer) {
   deployer.link(ConvertLib, MetaCoin);
   deployer.deploy(MetaCoin);
 };
+
